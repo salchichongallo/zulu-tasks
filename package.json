@@ -1,0 +1,20 @@
+{
+  "name": "zulu-todo",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "prettier": "prettier -w src"
+  },
+  "dependencies": {
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react-refresh": "^1.1.0",
+    "bootstrap": "^4",
+    "prettier": "^2.2.1",
+    "vite": "^2.0.0"
+  }
+}
