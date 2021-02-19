@@ -1,6 +1,6 @@
 import React from 'react'
 
-function TaskItem({name, onDelete}) {
+function TaskItem({name, onDelete, onEdit}) {
   return (
     <li className="list-group-item">
       <span className="lead">{name}</span>
@@ -11,7 +11,11 @@ function TaskItem({name, onDelete}) {
       >
         Delete
       </button>
-      <button type="button" className="btn btn-warning btn-sm float-right">
+      <button
+        onClick={onEdit}
+        type="button"
+        className="btn btn-warning btn-sm float-right"
+      >
         Edit
       </button>
     </li>

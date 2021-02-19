@@ -1,7 +1,7 @@
 import React from 'react'
 import TaskItem from './TaskItem'
 
-function TaskList({tasks, onTaskDelete}) {
+function TaskList({tasks, onTaskDelete, onTaskEdit}) {
   const hasTasks = tasks.length > 0
 
   if (!hasTasks) {
@@ -15,6 +15,7 @@ function TaskList({tasks, onTaskDelete}) {
           key={task.id}
           {...task}
           onDelete={() => onTaskDelete(task.id)}
+          onEdit={() => onTaskEdit(task)}
         />
       ))}
     </ul>

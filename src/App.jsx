@@ -8,6 +8,8 @@ const createTask = name => ({name, id: nanoid()})
 function App() {
   const [task, setTask] = React.useState('')
   const [tasks, setTasks] = React.useState([])
+  const [editingTask, setEditingTask] = React.useState(null)
+  const isEditing = !!editingTask
 
   const addTask = event => {
     event.preventDefault()
@@ -23,6 +25,26 @@ function App() {
     setTasks(tasks => tasks.filter(t => t.id !== taskId))
   }
 
+  const editTask = event => {
+    event.preventDefault()
+    if (isEmpty(task)) {
+      console.info('Task is empty, skipping.')
+      return
+    }
+    setTasks(tasks =>
+      tasks.map(t =>
+        t.id === editingTask.id ? {...editingTask, name: task} : t
+      )
+    )
+    setTask('')
+    setEditingTask(null)
+  }
+
+  const startEditing = task => {
+    setEditingTask(task)
+    setTask(task.name)
+  }
+
   return (
     <div className="container mt-5">
       <h1>Tasks</h1>
@@ -30,20 +52,33 @@ function App() {
       <div className="row">
         <div className="col-8">
           <h4 className="text-center">Task List</h4>
-          <TaskList tasks={tasks} onTaskDelete={deleteTask} />
+          <TaskList
+            tasks={tasks}
+            onTaskDelete={deleteTask}
+            onTaskEdit={startEditing}
+          />
         </div>
         <div className="col-4">
-          <h4 className="text-center">Add Task</h4>
-          <form onSubmit={addTask}>
+          <h4 className="text-center">
+            {isEditing ? 'Edit Task' : 'Add Task'}
+          </h4>
+          <form onSubmit={isEditing ? editTask : addTask}>
             <input
               value={task}
               onChange={event => setTask(event.currentTarget.value)}
               type="text"
               className="form-control mb-2"
-              placeholder="Enter task..."
+              placeholder={isEditing ? 'Enter new name...' : 'Enter task...'}
             />
-            <button type="submit" className="btn btn-dark btn-block">
-              Add
+            <button
+              type="submit"
+              className={
+                isEditing
+                  ? 'btn btn-block btn-dark'
+                  : 'btn btn-block btn-warning'
+              }
+            >
+              {isEditing ? 'Save' : 'Add'}
             </button>
           </form>
         </div>
