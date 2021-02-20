@@ -8,29 +8,40 @@ const createTask = name => ({name, id: nanoid()})
 function App() {
   const [task, setTask] = React.useState('')
   const [tasks, setTasks] = React.useState([])
+
   const [editingTask, setEditingTask] = React.useState(null)
   const isEditing = !!editingTask
 
+  const [error, setError] = React.useState(null)
+
+  React.useEffect(() => {
+    if (task || task === '') {
+      setError(null)
+    }
+  }, [task])
+
+  const validateForm = () => {
+    if (isEmpty(task)) {
+      setError('Please enter a task name.')
+      return false
+    }
+    return true
+  }
+
   const addTask = event => {
     event.preventDefault()
-    if (isEmpty(task)) {
-      console.info('Task is empty, skipping.')
-      return
+    if (validateForm()) {
+      setTasks(tasks => [...tasks, createTask(task)])
+      setTask('')
     }
-    setTasks(tasks => [...tasks, createTask(task)])
-    setTask('')
   }
 
   const deleteTask = taskId => {
     setTasks(tasks => tasks.filter(t => t.id !== taskId))
   }
-
   const editTask = event => {
     event.preventDefault()
-    if (isEmpty(task)) {
-      console.info('Task is empty, skipping.')
-      return
-    }
+    if (!validateForm()) return
     setTasks(tasks =>
       tasks.map(t =>
         t.id === editingTask.id ? {...editingTask, name: task} : t
@@ -70,6 +81,7 @@ function App() {
               className="form-control mb-2"
               placeholder={isEditing ? 'Enter new name...' : 'Enter task...'}
             />
+            {error && <div className="text-danger mb-2">{error}</div>}
             <button
               type="submit"
               className={
