@@ -1,0 +1,13 @@
+:root {
+  --font-sans: 'Poppins', sans-serif;
+  --font-weight-medium: 500;
+
+  --text-primary: rgba(0, 0, 0, 0.87);
+  --primary-color: #3497ff;
+  --white: #fff;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+}
