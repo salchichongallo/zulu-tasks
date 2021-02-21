@@ -5,7 +5,8 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "prettier": "prettier -w src"
+    "prettier": "prettier -w src",
+    "test": "jest"
   },
   "dependencies": {
     "nanoid": "^3.1.20",
@@ -14,8 +15,16 @@
     "react-dom": "^17.0.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.12.17",
+    "@babel/preset-react": "^7.12.13",
+    "@types/jest": "^26.0.20",
     "@vitejs/plugin-react-refresh": "^1.1.0",
+    "babel-jest": "^26.6.3",
     "bootstrap": "^4",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "jest": "^26.6.3",
+    "jest-enzyme": "^7.1.2",
     "prettier": "^2.2.1",
     "vite": "^2.0.0"
   }
