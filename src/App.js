@@ -2,6 +2,7 @@ import React from 'react'
 import {isEmpty} from 'ramda'
 import {nanoid} from 'nanoid'
 import TaskList from './TaskList'
+import AppTitle from './components/AppTitle'
 
 const createTask = name => ({name, id: nanoid()})
 
@@ -58,7 +59,7 @@ function App() {
 
   return (
     <div className="container mt-5">
-      <h1>Tasks</h1>
+      <AppTitle />
       <hr />
       <div className="row">
         <div className="col-8">

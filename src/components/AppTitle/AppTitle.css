@@ -1,0 +1,8 @@
+.AppTitle {
+  margin: 0;
+  display: inline-block;
+}
+
+.AppTitle-letter {
+  color: var(--primary-color);
+}
