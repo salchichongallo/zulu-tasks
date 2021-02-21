@@ -1,0 +1,46 @@
+.Button {
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  cursor: pointer;
+
+  min-height: 3.5rem;
+  min-width: 88px;
+  width: 100%;
+  border-radius: 0.25rem;
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Button-icon {
+  width: 1.125em;
+  height: 1.125em;
+  margin-right: 0.25rem;
+}
+
+.Button--variation-primary {
+  color: var(--white);
+  background: var(--primary-color);
+}
+.Button--variation-primary:hover {
+  opacity: 0.8;
+}
+
+.Button--variation-danger {
+  color: #fe3636;
+}
+.Button--variation-danger:hover {
+  background: hsl(0, 99%, 60.4%, 5%);
+}
+
+.Button--variation-cancel {
+  background: #e7e7e7;
+  color: rgba(0, 0, 0, 0.87);
+}
+.Button--variation-cancel:hover {
+  opacity: 0.8;
+}
