@@ -32,6 +32,7 @@
     "@testing-library/user-event": "^12.1.10",
     "bootstrap": "^4",
     "clsx": "^1.1.1",
+    "firebase": "^7",
     "nanoid": "^3.1.20",
     "ramda": "^0.27.1",
     "react": "^17.0.1",

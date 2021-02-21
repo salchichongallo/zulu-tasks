@@ -1,10 +1,13 @@
 import React from 'react'
 import {isEmpty} from 'ramda'
-import {nanoid} from 'nanoid'
 import TaskList from './TaskList'
 import AppTitle from './components/AppTitle'
-
-const createTask = name => ({name, id: nanoid()})
+import {
+  addDocument,
+  deleteDocument,
+  getDocuments,
+  updateDocument,
+} from 'actions'
 
 function App() {
   const [task, setTask] = React.useState('')
@@ -14,6 +17,16 @@ function App() {
   const isEditing = !!editingTask
 
   const [error, setError] = React.useState(null)
+
+  React.useEffect(() => {
+    async function fetchTasks() {
+      const result = await getDocuments('tasks')
+      if (result.statusResponse) {
+        setTasks(result.data)
+      }
+    }
+    fetchTasks()
+  }, [])
 
   React.useEffect(() => {
     if (task || task === '') {
@@ -29,20 +42,32 @@ function App() {
     return true
   }
 
-  const addTask = event => {
+  const addTask = async event => {
     event.preventDefault()
     if (validateForm()) {
-      setTasks(tasks => [...tasks, createTask(task)])
+      const result = await addDocument({name: task}, 'tasks')
+      if (!result.statusResponse) {
+        return setError(result.error)
+      }
+      setTasks(tasks => [...tasks, {id: result.data.id, name: task}])
       setTask('')
     }
   }
 
-  const deleteTask = taskId => {
+  const deleteTask = async taskId => {
+    const result = await deleteDocument(taskId, 'tasks')
+    if (!result.statusResponse) {
+      return setError(result.error)
+    }
     setTasks(tasks => tasks.filter(t => t.id !== taskId))
   }
-  const editTask = event => {
+  const editTask = async event => {
     event.preventDefault()
     if (!validateForm()) return
+    const result = await updateDocument(editingTask.id, {name: task}, 'tasks')
+    if (!result.statusResponse) {
+      return setError(result.error)
+    }
     setTasks(tasks =>
       tasks.map(t =>
         t.id === editingTask.id ? {...editingTask, name: task} : t
